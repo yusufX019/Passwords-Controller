@@ -66,7 +66,7 @@ public class Main {
         }
 
     }
-
+    //TODO add errors explonation
     private static void showAllStorages() throws IOException {
         BufferedReader baseFile=new BufferedReader(new FileReader("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat"));
         String line="0";
