@@ -1,9 +1,7 @@
-
 /*
     This is password keeper 1.0 concole edition
     ATTENTION , this is not professional softwate and has no encryption
     Author is not responsible of your actions and for your data stored using this software
-
 */
 
 package com.ilova;
@@ -15,10 +13,8 @@ import java.util.Scanner;
 
 
 public class Main {
-    private static Scanner userInput        =new Scanner(System.in);                                           //scanner for any porposes
-    private static String  userName         =System.getProperty("user.name");                                 // getting user name
-    private static String  baseFilePath     ="c:\\Users\\"+userName+"\\password keeper1.0\\sysdat.dat";      //  path to the file ,
-    private static String  passwordFilePath ="c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat";   //   path to the password file
+    private static Scanner userInput =new Scanner(System.in);               //scanner for any porposes
+    private static String  userName  =System.getProperty("user.name");     //getting user name
 
 
     public static void main(String[] args) throws IOException {
@@ -36,7 +32,7 @@ public class Main {
     }
 
     private static void passwordRequest() throws IOException {
-        BufferedReader passwordFile=new BufferedReader(new FileReader(passwordFilePath));
+        BufferedReader passwordFile=new BufferedReader(new FileReader("c:\\Users\\"+userName+"\\password keeper1.0\\sysdat.dat"));
         String password=passwordFile.readLine();
         int attemptsAmount=0;
         System.out.println("Hello "+userName+"!");
@@ -61,9 +57,9 @@ public class Main {
     //Main menu
     private static void showMainMenu() throws IOException {
         System.out.println("1-To create new storage"  +
-                           " 2-To Find storage"       +
-                           " 4-To List all storages:" +
-                           " 5-To exit( ");
+                " 2-To Find storage"       +
+                " 4-To List all storages:" +
+                " 5-To exit( ");
         byte command=0;
         //try to get user input
         try {
@@ -97,7 +93,7 @@ public class Main {
         BufferedReader baseFile= null;      //creating reder from the file
         //try to open file
         try {
-            baseFile = new BufferedReader(new FileReader(baseFilePath));
+            baseFile = new BufferedReader(new FileReader("c:\\Users\\" + userName + "\\password keeper1.0\\baseFile.dat"));
         }//in future I will try to store errors list with their definitions
         catch (FileNotFoundException e) {
             System.out.println("Error, #001");
@@ -138,7 +134,7 @@ public class Main {
         BufferedReader baseFile=null;
         //again try to open file and catching error then printing error number so that i could now excatly where is the problem
         try {
-            baseFile=new BufferedReader(new FileReader(baseFilePath));
+            baseFile=new BufferedReader(new FileReader("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat"));
 
         } catch (FileNotFoundException e) {
             System.out.println("Error, #002");
@@ -188,7 +184,7 @@ public class Main {
         System.out.print("Type the login   :");               String login    =userInput.next();
         System.out.print("Type the password:");               String password =userInput.next();
         //opening file for writing in it
-        BufferedWriter baseFile=new BufferedWriter(new FileWriter(baseFilePath,true));
+        BufferedWriter baseFile=new BufferedWriter(new FileWriter("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat",true));
 
         Site newSite=new Site(password,login,name);     //creating an object of the storage , older name was storage but class stayed unchanged
         baseFile.write(newSite.getId()+",");     baseFile.write(newSite.getName()+",");
@@ -205,7 +201,7 @@ public class Main {
     private static boolean emptyStorage() throws IOException {
         BufferedReader baseFile=null;
         try {
-            baseFile=new BufferedReader(new FileReader(baseFilePath));
+            baseFile=new BufferedReader(new FileReader("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat"));
         }catch (Exception e){
             System.out.println("Error,#003");
             showMainMenu();
@@ -226,7 +222,7 @@ public class Main {
         boolean         siteExist =false;
         BufferedReader  baseFile  =null;
         try {
-            baseFile=new BufferedReader(new FileReader(baseFilePath));
+            baseFile=new BufferedReader(new FileReader("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat"));
 
         } catch (FileNotFoundException e) {
             System.out.println("Error,#004");
@@ -240,7 +236,6 @@ public class Main {
         String[] separetedBycomma=null;
         while ((line=baseFile.readLine())!=null) {
             separetedBycomma=(line.split(","));
-            System.out.println  (separetedBycomma[0]);
         }
 
 
@@ -280,7 +275,7 @@ public class Main {
         System.out.println("Type your password");
         String password=userInput.next();
 
-        File passwordFile=new File(passwordFilePath);
+        File passwordFile=new File("c:\\Users\\"+userName+"\\password keeper1.0\\sysdat.dat");
         try {
             passwordFile.createNewFile();
             BufferedWriter wPasswordFile=new BufferedWriter(new FileWriter(passwordFile));
@@ -318,14 +313,14 @@ public class Main {
     private static void installProgramm() throws IOException {
         //this function just creates all files
         File baseFolder     =new File("c:\\Users\\"+userName+"\\password keeper1.0");
-        File baseFile       =new File(baseFilePath);
+        File baseFile       =new File("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat");
         BufferedWriter wBaseFile=null;   //writing to the file
         baseFolder.mkdir();         //creating folder
         try{
-           baseFile.createNewFile();
-           wBaseFile=new BufferedWriter(new FileWriter(baseFilePath,true));
-           wBaseFile.write("id,name,login,password\n");
-           wBaseFile.close();
+            baseFile.createNewFile();
+            wBaseFile=new BufferedWriter(new FileWriter("c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat",true));
+            wBaseFile.write("id,name,login,password\n");
+            wBaseFile.close();
 
         } catch (IOException e) {
             System.out.println("Error,#006");
@@ -335,7 +330,7 @@ public class Main {
 
     private static boolean isInstalled() {
         //checks if all the files exist in this machine
-        File baseFile = new File(  baseFilePath);
+        File baseFile = new File(  "c:\\Users\\"+userName+"\\password keeper1.0\\baseFile.dat");
         if (baseFile.exists()) {
             return true;
         } else return false;
@@ -343,9 +338,9 @@ public class Main {
 
     private static boolean isPasswordInstalled(){
         //just checks if password file exists
-        File passwordFile=new File(passwordFilePath);
+        File passwordFile=new File("c:\\Users\\"+userName+"\\password keeper1.0\\sysdat.dat");
         if(passwordFile.exists()){
-           return true;
+            return true;
         }
         else return false;
     }
