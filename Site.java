@@ -1,5 +1,7 @@
 package com.ilova;
 
+import java.util.Random;
+
 public class Site {
     private static int id=0;
     private String password;
@@ -10,7 +12,10 @@ public class Site {
         this.password = password;
         this.logIn = logIn;
         this.name = name;
-        id++;
+
+        //setting random id to the objects
+        Random randomizer=new Random();
+        id=randomizer.nextInt(1000);
     }
 
 

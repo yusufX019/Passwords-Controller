@@ -27,17 +27,41 @@ public class Main {
         System.out.println("\tWelcome to the Password Controller 1.0 [console version] programm \n\tthis programm helpes you to store your passwords easily!!!");
         if(!isPasswordInstalled()) {
             setPassword();
+        }else {
+            passwordRequest();
         }
         showMainMenu();
+    }
+
+    private static void passwordRequest() throws IOException {
+        BufferedReader passwordFile=new BufferedReader(new FileReader("c:\\Users\\"+userName+"\\password keeper1.0\\sysdat.dat"));
+        String password=passwordFile.readLine();
+        int attemptsAmount=0;
+        System.out.println("Hello "+userName+"!");
+        while (true){
+            System.out.println("Type the password:");
+            String userPassword=userInput.next();
+            if(userPassword.equals(password)){
+                break;
+            }
+            else {
+                attemptsAmount++;
+            }
+            if(attemptsAmount>5)  {
+                System.out.println("To much attempts!!!");
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.exit(0);
+            }
+        }
     }
 
 
     //Main menu
     private static void showMainMenu() throws IOException {
-        System.out.println("1-To create new storage" +
-                           " 2-To Find storage" +
+        System.out.println("1-To create new storage"  +
+                           " 2-To Find storage"       +
                            " 4-To List all storages:" +
-                           " 5-To Show all errors information");
+                           " 5-To exit( ");
         byte command=0;
         //try to get user input
         try {
